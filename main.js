@@ -42,12 +42,9 @@
   const mainState=()=>{mainButton.querySelector('use').setAttribute('href',main.video.paused?'#i-play':'#i-pause');mainButton.querySelector('span:not(.main-duration)').textContent=main.video.paused?(main.video.currentTime>0?'Continue watching':'Watch the full video'):'Pause video';};
   ['play','pause','ended'].forEach(e=>main.video.addEventListener(e,mainState));
 
-  // v5.1: remove the former visible Trial 12 (source ID 14), not source 12.mp4.
-  // Preserve every other video, its order, source path, and the user's resource links.
-  const videos=(Array.isArray(c.gallery?.videos)?c.gallery.videos:[]).filter(media => {
-    const src = text(media.src).split(/[?#]/)[0].replace(/\\/g, '/');
-    return !/(?:^|\/)real-robot-videos\/14\.mp4$/.test(src);
-  });
+  // Gallery list is prepared by gallery-restoration-v6.js in original file order.
+  // Do not keep the former source-14 removal filter.
+  const videos=Array.isArray(c.gallery?.videos)?c.gallery.videos:[];
   const initial=Math.max(1,Number(c.gallery?.initialVisible)||6);
   $('#trial-count').textContent=`${videos.length} videos`;
   videos.forEach((m,i)=>{const article=el('article','trial-card');article.dataset.trial=String(m.id);article.hidden=i>=initial;const p=createVideo(m,{lazyPoster:article.hidden});article.append(p.shell);const meta=el('div','trial-meta');meta.append(el('h3','',m.title),el('span','',clock(m.durationSeconds)));article.append(meta);$('#trial-grid').append(article);});
