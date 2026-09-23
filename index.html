@@ -1,145 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ECHO-G: full-body humanoid co-speech motion generation from speech audio and timed transcripts.">
-  <meta name="theme-color" content="#164b42">
-  <title>ECHO-G · Humanoid Co-speech Motion Generation</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23164b42'/%3E%3Cpath d='M15 26v12m8-22v32m9-27v22m9-32v42m8-27v12' fill='none' stroke='%23e5f6ed' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
-  <script src="site-config.js" defer></script>
-  <script src="main.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <symbol id="icon-wave" viewBox="0 0 24 24"><path d="M3 10v4m4-8v12m5-15v18m5-14v10m4-7v4"/></symbol>
-    <symbol id="icon-paper" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h6"/></symbol>
-    <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></symbol>
-    <symbol id="icon-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></symbol>
-    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
-    <symbol id="icon-external" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></symbol>
-    <symbol id="icon-figure" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m4 17 5-5 4 4 3-3 5 5"/></symbol>
-    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
-  </svg>
-
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="wordmark" href="#top" aria-label="ECHO-G — back to top">
-        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-wave"/></svg></span>
-        <span data-project-name>ECHO-G</span>
-      </a>
-      <nav aria-label="Page navigation">
-        <a href="#demonstration">Demo</a>
-        <a href="#overview">Overview</a>
-        <a href="#resources">Resources</a>
-      </nav>
-      <span class="preview-badge" data-preview-badge><span></span> Project preview</span>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero section-shell" id="top" aria-labelledby="project-heading">
-      <p class="eyebrow hero-eyebrow"><span class="small-rule"></span> Humanoid co-speech motion generation</p>
-      <h1 id="project-heading">
-        <span class="project-name" data-project-name>ECHO-G</span>
-        <span class="paper-title" data-paper-title>Embodied Co-speech Humanoid<br class="desktop-break"> mOtion Generation</span>
-      </h1>
-      <p class="hero-description" data-description>Full-body humanoid motion generated from<br class="desktop-break"> speech audio and timed transcripts.</p>
-      <div class="authors" id="authors" hidden></div>
-      <div class="affiliations" id="affiliations" hidden></div>
-      <div class="hero-links" aria-label="Project resources">
-        <button class="resource-button button-primary" data-resource="paper" disabled type="button" aria-label="Paper — link not added yet"><svg class="icon" aria-hidden="true"><use href="#icon-paper"/></svg><span>Paper</span><span class="button-status">Soon</span></button>
-        <button class="resource-button" data-resource="code" disabled type="button" aria-label="Code — link not added yet"><svg class="icon" aria-hidden="true"><use href="#icon-code"/></svg><span>Code</span><span class="button-status">Soon</span></button>
-        <button class="resource-button" data-resource="dataset" disabled type="button" aria-label="Dataset — link not added yet"><svg class="icon" aria-hidden="true"><use href="#icon-data"/></svg><span>Dataset</span><span class="button-status">Soon</span></button>
-      </div>
-      <p class="pending-note" id="hero-pending-note">Resource links will be added here.</p>
-      <div class="hero-footnote"><span class="tiny-dot"></span> Audio + timed transcript <svg class="icon flow-arrow" aria-hidden="true"><use href="#icon-arrow"/></svg> Full-body robot motion</div>
-    </section>
-
-    <section class="demo-section section-shell" id="demonstration" aria-labelledby="demo-heading">
-      <div class="section-heading">
-        <div><p class="eyebrow">01 &nbsp;/&nbsp; Watch</p><h2 id="demo-heading">Speech in motion.</h2></div>
-        <p class="section-aside">Real-robot demonstration</p>
-      </div>
-      <figure class="demo-figure">
-        <div class="video-stage" id="video-stage">
-          <div class="media-placeholder" id="video-placeholder" role="img" aria-label="Placeholder for a real-robot demonstration video; no video has been added.">
-            <div class="stage-topline"><span class="stage-label">ECHO-G / Real robot</span><span class="stage-status">Video pending</span></div>
-            <div class="video-empty-center">
-              <span class="play-outline" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m12 8 12 8-12 8z"/></svg></span>
-              <h3>Real-robot demonstration</h3>
-              <p>The representative video will appear here.</p>
-            </div>
-            <div class="stage-bottomline"><span>Speech audio · Generated motion</span><svg class="stage-wave" viewBox="0 0 160 34" aria-hidden="true"><path d="M2 15v4m8-8v12m8-15v18m8-21v24m8-16v8m8-20v32m8-23v14m8-18v22m8-15v8m8-11v14m8-19v24m8-28v32m8-21v10m8-13v16m8-21v26m8-18v10m8-7v4m8-10v16m8-12v8m8-6v4"/></svg></div>
-          </div>
-        </div>
-        <figcaption id="demo-caption">Video placeholder · Final media will be added in a later update.</figcaption>
-      </figure>
-    </section>
-
-    <section class="overview-section section-shell" id="overview" aria-labelledby="overview-heading">
-      <div class="overview-copy">
-        <div class="overview-title">
-          <p class="eyebrow">02 &nbsp;/&nbsp; Understand</p>
-          <h2 id="overview-heading">One utterance.<br>Many possible<br class="wide-break"> gestures<span class="accent-period">.</span></h2>
-        </div>
-        <div class="overview-text">
-          <p>ECHO-G generates full-body humanoid co-speech motion from <strong>speech audio and timed transcripts</strong>. Its Speech-Grounded Diffusion Transformer (SGDiT) combines frame-aligned acoustic features with token-level linguistic context, retaining their distinct granularities.</p>
-          <p>Rectified flow matching models multiple plausible motions for the same utterance. The generated joint-position references are executed by a fixed whole-body motion tracker.</p>
-          <p>The project also introduces a BEAT2-derived audio–text–robot dataset and a benchmark covering <strong>co-speech characteristics, robot-motion quality, and runtime efficiency</strong>.</p>
-        </div>
-      </div>
-      <figure class="overview-figure">
-        <div class="figure-stage" id="figure-stage">
-          <div class="figure-placeholder" id="figure-placeholder" role="img" aria-label="Placeholder for the ECHO-G overview figure; no figure has been added.">
-            <span class="figure-label">Overview figure</span>
-            <div class="figure-empty-center"><svg class="icon" aria-hidden="true"><use href="#icon-figure"/></svg><p>A place for the big picture.</p><span>The final framework illustration will appear here.</span></div>
-            <span class="figure-corner corner-tl" aria-hidden="true"></span><span class="figure-corner corner-tr" aria-hidden="true"></span><span class="figure-corner corner-bl" aria-hidden="true"></span><span class="figure-corner corner-br" aria-hidden="true"></span>
-          </div>
-        </div>
-        <figcaption id="overview-caption">Figure placeholder · The final overview illustration has not been added.</figcaption>
-      </figure>
-    </section>
-
-    <section class="resources-section" id="resources" aria-labelledby="resources-heading">
-      <div class="section-shell">
-        <div class="section-heading resource-section-heading">
-          <div><p class="eyebrow">03 &nbsp;/&nbsp; Explore</p><h2 id="resources-heading">Research resources.</h2></div>
-          <p class="section-aside" id="resource-note">Links will become active<br>when materials are added.</p>
-        </div>
-        <div class="resource-grid">
-          <article class="resource-card" data-card="paper">
-            <div class="card-top"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-paper"/></svg></span><span class="card-state" data-state="paper">Pending</span></div>
-            <h3>Paper</h3>
-            <p>The framework, evaluation protocol, and experimental results.</p>
-            <button class="card-link" data-resource="paper" type="button" disabled aria-label="Read the paper — link not added yet"><span>Read the paper</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
-          </article>
-          <article class="resource-card" data-card="code">
-            <div class="card-top"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-code"/></svg></span><span class="card-state" data-state="code">Pending</span></div>
-            <h3>Code</h3>
-            <p>Training, inference, and benchmark evaluation in one place.</p>
-            <button class="card-link" data-resource="code" type="button" disabled aria-label="Explore the code — link not added yet"><span>Explore the code</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
-          </article>
-          <article class="resource-card" data-card="dataset">
-            <div class="card-top"><span class="card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-data"/></svg></span><span class="card-state" data-state="dataset">Pending</span></div>
-            <h3>Dataset</h3>
-            <p>Paired speech audio, timed transcripts, and robot-motion sequences.</p>
-            <button class="card-link" data-resource="dataset" type="button" disabled aria-label="Access the dataset — link not added yet"><span>Access the dataset</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="citation-section section-shell" id="citation" aria-labelledby="citation-heading" hidden>
-      <div class="section-heading"><div><p class="eyebrow">Reference</p><h2 id="citation-heading">Citation.</h2></div><button class="copy-button" id="copy-citation" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg><span>Copy BibTeX</span></button></div>
-      <pre><code id="citation-code"></code></pre>
-      <p class="copy-status" id="copy-status" aria-live="polite"></p>
-    </section>
-  </main>
-
-  <footer class="site-footer section-shell"><a class="footer-brand" href="#top" data-project-name>ECHO-G</a><p>Full-body humanoid co-speech motion generation.</p><span class="footer-status" id="footer-status">Project preview · Materials pending</span></footer>
-  <noscript><div class="noscript-note">JavaScript is disabled. This preview is readable, but configured media and resource links require JavaScript.</div></noscript>
-</body>
-</html>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#15584d">
+<meta name="description" content="ECHO-G generates full-body humanoid co-speech motion from speech audio and timed transcripts. Watch real-robot demonstrations, compare conditioning modalities, and explore the results.">
+<meta property="og:type" content="website"><meta property="og:title" content="ECHO-G · Embodied Co-speech Humanoid mOtion Generation">
+<meta property="og:description" content="Speech audio and timed transcripts, translated into full-body robot motion.">
+<meta property="og:url" content="https://echo-g-project.github.io/"><meta property="og:image" content="https://echo-g-project.github.io/assets/images/social-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<title>ECHO-G · Embodied Co-speech Humanoid mOtion Generation</title>
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css?v=3"><script src="site-config.js?v=3" defer></script><script src="main.js?v=3" defer></script>
+</head><body><a class="skip-link" href="#main">Skip to content</a><svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 10v4m4-8v12m5-15v18m5-14v10m4-7v4"/></symbol>
+<symbol id="i-paper" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h6"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-14-2 18"/></symbol>
+<symbol id="i-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 10 7-10 7z"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14m6-14v14"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M14 4h6v6m0-6-7 7M10 20H4v-6m0 6 7-7"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><path d="m10 5-5 4H2v6h3l5 4V5zm4 3a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></symbol>
+<symbol id="i-muted" viewBox="0 0 24 24"><path d="m10 5-5 4H2v6h3l5 4V5zm5 4 6 6m0-6-6 6"/></symbol>
+<symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol>
+</svg>
+<header class="site-header"><div class="header-inner"><a href="#top" class="wordmark" aria-label="ECHO-G home"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-wave"/></svg></span>ECHO-G</a><nav aria-label="Page sections"><a href="#main-video">Video</a><a href="#real-robot">Real robot</a><a href="#comparison">Comparison</a><a href="#results">Results</a><a href="#architecture">Architecture</a><a href="#abstract">Abstract</a></nav></div></header>
+<main id="main">
+<section class="hero section-shell" id="top" aria-labelledby="project-heading">
+<h1 id="project-heading"><span class="project-name">ECHO-G</span><span class="paper-title">Embodied Co-speech Humanoid mOtion Generation</span></h1>
+<p class="hero-description">Full-body robot motion from speech audio and timed transcripts.</p>
+<div class="authors" id="authors" hidden></div><div class="affiliations" id="affiliations" hidden></div>
+<div class="hero-links" aria-label="Project resources"><button type="button" class="resource-button" data-resource="paper" disabled aria-label="Paper: link pending"><svg class="icon" aria-hidden="true"><use href="#i-paper"/></svg><span>Paper</span><span class="pending-tag">Soon</span></button><button type="button" class="resource-button" data-resource="code" disabled aria-label="Code: link pending"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg><span>Code</span><span class="pending-tag">Soon</span></button><button type="button" class="resource-button" data-resource="dataset" disabled aria-label="Dataset: link pending"><svg class="icon" aria-hidden="true"><use href="#i-data"/></svg><span>Dataset</span><span class="pending-tag">Soon</span></button></div><p class="resource-note" id="resource-note">Research resources are being prepared.</p>
+</section>
+<section class="main-video-section section-shell" id="main-video" aria-labelledby="main-video-heading">
+<h2 id="main-video-heading" class="sr-only">Main video</h2>
+<figure class="featured-media"><div class="featured-player" id="main-video-slot"></div><div class="feature-toolbar"><button type="button" id="main-play" class="main-play"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span>Watch the full video</span><span class="main-duration">3:00</span></button><button type="button" class="text-link" id="open-cover">View project overview <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></button></div></figure>
+<p class="video-hint">Play with sound. The cover illustration can also be opened at full resolution.</p>
+</section>
+<section class="trials-section section-shell" id="real-robot" aria-labelledby="trials-heading">
+<div class="section-heading"><div><p class="section-kicker">On the robot</p><h2 id="trials-heading">Real-robot demonstrations<span>.</span></h2></div><span class="count-chip" id="trial-count">13 videos</span></div>
+<p class="section-intro">Generated gestures executed alongside the corresponding speech.</p><div class="trial-grid" id="trial-grid"></div>
+<div class="gallery-actions"><button class="outline-button" id="gallery-toggle" type="button" aria-controls="trial-grid" aria-expanded="false"><span>Show all 13 videos</span><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button><p>Videos play on demand. Only one audio track plays at a time.</p></div>
+</section>
+<section class="comparison-section" id="comparison" aria-labelledby="comparison-heading"><div class="section-shell">
+<div class="section-heading"><div><p class="section-kicker">Conditioning comparison</p><h2 id="comparison-heading">One utterance. Three conditions<span>.</span></h2></div><p class="section-aside">Matched frames · Shared speech</p></div>
+<p class="section-intro">Audio-only on the left, joint audio–text in the center, and text-only on the right.</p>
+<div class="comparison-card"><div class="comparison-scroll" id="comparison-scroll" tabindex="0" role="region" aria-label="Audio-only, audio plus text, and text-only comparison. Scroll horizontally on a small screen."><div class="comparison-canvas"><div class="comparison-labels" id="comparison-labels"></div><div class="comparison-player" id="comparison-player"></div><div class="comparison-links" id="comparison-links"></div></div></div>
+<div class="comparison-controls"><button type="button" id="comparison-play" class="comparison-play" aria-label="Play all three conditions together"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span>Play comparison</span></button><button type="button" id="comparison-replay" class="icon-button" aria-label="Replay comparison"><svg class="icon" aria-hidden="true"><use href="#i-replay"/></svg></button><label class="sr-only" for="comparison-seek">Comparison position</label><input id="comparison-seek" type="range" min="0" max="15.07" step="0.01" value="0" disabled><span class="time-readout" id="comparison-time">0:00 / 0:15</span><button type="button" class="icon-button" id="comparison-sound" aria-label="Mute comparison audio" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-sound"/></svg></button><button type="button" class="icon-button" id="comparison-fullscreen" aria-label="Open comparison in full screen"><svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></button></div></div>
+<p class="comparison-note">Synchronized playback with a single speech track. <span class="mobile-note">Swipe horizontally to inspect each condition.</span></p>
+</div></section>
+<section class="results-section section-shell" id="results" aria-labelledby="results-heading"><div class="section-heading"><div><p class="section-kicker">Quantitative evaluation</p><h2 id="results-heading">Results<span>.</span></h2></div><p class="section-aside">BEAT2 speaker-held-out evaluation</p></div>
+<div class="ranking-legend"><span><strong>Bold</strong> best</span><span><u>Underline</u> second-best</span><span>↓ lower is better &nbsp; · &nbsp; ↑ higher is better</span></div><div id="benchmark-tables" class="benchmark-tables"></div>
+</section>
+<section class="architecture-section" id="architecture" aria-labelledby="architecture-heading"><div class="section-shell"><div class="section-heading"><div><p class="section-kicker">The framework</p><h2 id="architecture-heading">Inside SGDiT<span>.</span></h2></div><button type="button" class="text-link" id="open-architecture">Full-size figure <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></button></div>
+<figure class="architecture-figure"><button type="button" class="figure-button" id="architecture-image-button" aria-label="Enlarge the SGDiT architecture"><img id="architecture-image" src="assets/images/Arch-4.png" width="4386" height="1662" loading="lazy" decoding="async" alt="SGDiT architecture and tracking interface."></button><figcaption id="architecture-caption"></figcaption></figure></div></section>
+<section class="abstract-section section-shell" id="abstract" aria-labelledby="abstract-heading"><div class="abstract-layout"><div><p class="section-kicker">The paper</p><h2 id="abstract-heading">Abstract<span>.</span></h2></div><div class="abstract-copy"><p id="abstract-text">Generating full-body co-speech motion for humanoid robots requires coordinating speech prosody, linguistic content, and embodiment-specific motion. To this end, we present ECHO-G, a framework that jointly conditions full-body robot-motion generation on speech audio and timed transcripts. Its Speech-Grounded Diffusion Transformer (SGDiT) integrates frame-aligned acoustic features into the motion stream and retrieves token-level linguistic context through global and temporally biased cross-attention. Trained with rectified flow matching, SGDiT models the one-to-many relationship between utterances and accompanying gestures directly in robot space. To support training and evaluation, we introduce a BEAT2-derived dataset pairing audio and timed transcripts with robot motion, together with a benchmark covering co-speech characteristics, robot-motion quality, and runtime efficiency. Comparative evaluation supports direct robot-space generation over the evaluated human-motion generation and retargeting pipelines, while modality ablations highlight the benefits of joint audio–text conditioning. We further demonstrate deployment on a physical humanoid robot. A complementary video-rating user study also favors joint conditioning over the compared configurations.</p><p id="abstract-release" hidden></p></div></div></section>
+<section class="citation-section section-shell" id="citation" hidden><h2>Citation</h2><pre id="citation-code"></pre></section>
+</main>
+<footer class="site-footer"><div class="section-shell footer-inner"><a href="#top" class="footer-brand">ECHO-G</a><p>Embodied Co-speech Humanoid mOtion Generation</p><a href="#top" class="back-top">Back to top ↑</a></div></footer>
+<dialog class="figure-dialog" id="figure-dialog"><div class="dialog-toolbar"><h2 id="dialog-title">Project overview</h2><button type="button" id="close-dialog" class="icon-button" aria-label="Close full-size figure"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><img id="dialog-image" alt=""><a id="dialog-original" class="text-link" target="_blank" rel="noopener noreferrer">Open original file <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></dialog>
+<noscript><p class="noscript-note">Enable JavaScript for the video gallery and tables. Direct files: <a href="assets/videos/long-video.mp4">main video</a>, <a href="assets/videos/comparison/conditioning-comparison.mp4">modality comparison</a>, <a href="assets/tables/TABLE1.png">Table I</a>, <a href="assets/tables/TABLE2.png">Table II</a>.</p></noscript>
+</body></html>

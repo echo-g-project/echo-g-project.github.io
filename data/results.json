@@ -1,0 +1,221 @@
+[
+  {
+    "id": "pipelines",
+    "title": "Generation pipelines",
+    "number": "Table I",
+    "description": "Direct robot-space generation and human-motion generation followed by retargeting or learned mapping.",
+    "source": "assets/tables/TABLE1.png",
+    "columns": [
+      {
+        "label": "FGD",
+        "direction": "down",
+        "description": "Fréchet Gesture Distance"
+      },
+      {
+        "label": "ΔDiv",
+        "direction": "down",
+        "description": "Absolute gap to the reference diversity statistic"
+      },
+      {
+        "label": "MM",
+        "direction": "up",
+        "description": "Multimodality"
+      },
+      {
+        "label": "ΔBA",
+        "direction": "down",
+        "description": "Absolute gap to the reference Beat Alignment statistic"
+      },
+      {
+        "label": "ΔJerk",
+        "direction": "down",
+        "description": "Absolute gap to the reference jerk statistic"
+      },
+      {
+        "label": "Foot Err.",
+        "unit": "m",
+        "direction": "down",
+        "description": "Foot-ground error"
+      },
+      {
+        "label": "C-Slide",
+        "unit": "m/s",
+        "direction": "down",
+        "description": "Contact sliding speed"
+      },
+      {
+        "label": "E2E Time",
+        "unit": "ms/frame",
+        "direction": "down",
+        "description": "End-to-end processing time per output frame"
+      },
+      {
+        "label": "Peak RAM Δ",
+        "unit": "MB",
+        "direction": "down",
+        "description": "Peak system RAM increase"
+      }
+    ],
+    "groups": [
+      {
+        "name": "Co-Speech Motion Characteristics",
+        "span": 4
+      },
+      {
+        "name": "Robot Motion Quality",
+        "span": 3
+      },
+      {
+        "name": "Efficiency",
+        "span": 2
+      }
+    ],
+    "rows": [
+      {
+        "method": "EMAGE+GMR",
+        "values": [
+          "4.976",
+          "0.749",
+          "0",
+          "0.172",
+          "26.951",
+          "0.013",
+          "0.163",
+          "21.3",
+          "2661"
+        ]
+      },
+      {
+        "method": "GestureLSM+GMR",
+        "values": [
+          "5.008",
+          "0.561",
+          "1.016",
+          "0.158",
+          "24.444",
+          "0.010",
+          "0.169",
+          "20.5",
+          "3804"
+        ]
+      },
+      {
+        "method": "Human-Retargeted",
+        "values": [
+          "4.725",
+          "0.408",
+          "1.498",
+          "0.161",
+          "8.001",
+          "0.003",
+          "0.050",
+          "6.56",
+          "18714"
+        ]
+      },
+      {
+        "method": "Ours",
+        "ours": true,
+        "values": [
+          "2.278",
+          "0.320",
+          "1.786",
+          "0.063",
+          "9.039",
+          "0.008",
+          "0.052",
+          "5.96",
+          "18542"
+        ]
+      }
+    ],
+    "note": "ΔDiv, ΔBA and ΔJerk are absolute deviations from matched ground-truth statistics over each method’s evaluated motion range."
+  },
+  {
+    "id": "modalities",
+    "title": "Conditioning modalities",
+    "number": "Table II",
+    "description": "Audio-only, text-only and joint audio–text conditioning in the robot-space generator.",
+    "source": "assets/tables/TABLE2.png",
+    "columns": [
+      {
+        "label": "FGD",
+        "direction": "down",
+        "description": "Fréchet Gesture Distance"
+      },
+      {
+        "label": "ΔDiv",
+        "direction": "down",
+        "description": "Absolute gap to the reference diversity statistic"
+      },
+      {
+        "label": "MM",
+        "direction": "up",
+        "description": "Multimodality"
+      },
+      {
+        "label": "ΔBA",
+        "direction": "down",
+        "description": "Absolute gap to the reference Beat Alignment statistic"
+      },
+      {
+        "label": "ΔJerk",
+        "direction": "down",
+        "description": "Absolute gap to the reference jerk statistic"
+      },
+      {
+        "label": "Foot Err.",
+        "unit": "m",
+        "direction": "down",
+        "description": "Foot-ground error"
+      },
+      {
+        "label": "C-Slide",
+        "unit": "m/s",
+        "direction": "down",
+        "description": "Contact sliding speed"
+      }
+    ],
+    "groups": [],
+    "rows": [
+      {
+        "method": "Audio-only",
+        "values": [
+          "2.360",
+          "0.360",
+          "1.702",
+          "0.081",
+          "4.497",
+          "0.008",
+          "0.038"
+        ]
+      },
+      {
+        "method": "Text-only",
+        "values": [
+          "2.436",
+          "0.429",
+          "1.681",
+          "0.113",
+          "5.940",
+          "0.009",
+          "0.049"
+        ]
+      },
+      {
+        "method": "Ours",
+        "ours": true,
+        "values": [
+          "2.278",
+          "0.320",
+          "1.786",
+          "0.063",
+          "9.039",
+          "0.008",
+          "0.052"
+        ]
+      }
+    ],
+    "note": "ΔDiv, ΔBA and ΔJerk use shared ground-truth statistics. Ties at the displayed precision receive identical highlighting."
+  }
+]

@@ -1,104 +1,67 @@
-# ECHO-G — minimal project page
+# ECHO-G project page · v3
 
-第一版英文静态项目页。当前 **PDF、Code、Dataset、视频和总览图均留空**，不会显示为已经可下载。
-无需 Node.js、npm、后端、数据库或在线推理服务。没有 CDN、远程字体、追踪脚本或第三方播放器。
+本次更新以你最新上传的 `ECHO-G_GitHub_Pages.zip` 为素材依据。网站仍为无需构建的英文静态页面，没有在线生成、后台服务、分析追踪或外部字体依赖。
 
-## 1. 查看
+## 已完成的修改
 
-解压后，直接用浏览器打开 `index.html`。默认配置在 `site-config.js` 中，使用普通脚本，不需要 `fetch`。
+- 删除标题上方的 `HUMANOID CO-SPEECH MOTION GENERATION` 小字。
+- 删除主视频上方的 `Speech, brought to motion.` / `Speech in motion.` 标题。
+- 将 `cover-page.png` 整合为主视频封面，完整显示，不裁去图中文字；点击封面或播放按钮启动主视频。
+- 保留 `View project overview` 按钮，可单独放大查看原图，不受视频播放状态影响。
+- 真机视频仅使用新包内保留的 13 段，编号为 1、2、4、6、7、8、9、10、11、12、13、14、15。没有恢复已删除的 3 和 5。
+- 视频 9：使用本次 `9-4.mp4`，截取源视频第 4 秒到结束。输出 519 帧、30 fps，视频画面时长 17.30 秒。
+- 视频 15：使用本次 `15-15.mp4`，截取源视频开始到第 15 秒。输出 450 帧、30 fps，时长 15.00 秒。
+- 在实验表格之前加入三模态同步对比，顺序为 **Audio-only | Audio + Text (Ours) | Text-only**。
+- 对比区支持播放、暂停、重新播放、进度拖动、静音与全屏；也能打开各自的原始单模态视频。
+- 手机端对比区可横向滑动，初始位置居中显示 Audio + Text。
+- 两张表格继续使用本次 TABLE1.png 和 TABLE2.png 中的数值，不改动实验数据。
+- 表格之后依次为 Arch-4.png 和论文 Abstract。
 
-通过本地 HTTP 服务测试媒体（尤其 WebVTT 字幕）时，在网站目录运行：
+## 更新线上仓库
 
-```bash
-python -m http.server 8000
-```
+1. 解压此 ZIP，进入能直接看到 `index.html` 的目录。
+2. 将 `index.html`、`styles.css`、`main.js`、`site-config.js` 覆盖到现有仓库的根目录。
+3. 将 `assets/` 和 `data/` 内的文件一起上传，保持目录结构。
+4. `.nojekyll` 为非空文件，可上传；原仓库已有时保留即可。
+5. 提交到现有 Pages 使用的分支。无需另建组织、仓库或网址。
+6. 等本次部署完成后，以无痕窗口或硬刷新检查页面。
 
-然后访问 `http://localhost:8000`。双击打开 HTML 可以预览页面，但部分浏览器会限制 file:// 下的字幕、剪贴板或跨域媒体。
+不要上传 ZIP 本身作为网页；不要在根目录外额外套一层本 ZIP 的文件夹名称。
 
-## 2. 文件结构
+**旧文件删除说明：** 覆盖网页文件不会自动删除仓库里的旧视频。新版网页已经完全不引用视频 3 和 5；若旧仓库中仍有它们的文件，也应删除对应旧文件，避免其直链仍可访问。旧版网页素材可能位于 `assets/videos/real-robot-videos/` 或 `ECHO-G_web_resources/real-robot-videos/`，按仓库实际路径处理；不要误删仍在使用的视频。
 
-```text
-index.html         页面结构与英文概览文案
-styles.css         白底、青绿色、响应式样式
-main.js            资源启用、媒体替换、公开版作者与引用功能
-site-config.js     集中配置入口；后续主要修改此文件
-assets/            本地论文、视频、封面、总览图等
-README.md          使用说明
-```
+本交付物没有自动向 GitHub 提交，也没有直接改变线上网站。
 
-## 3. 填充资源
+## 媒体处理记录
 
-将媒体放进 `assets/`，并修改 `site-config.js`：
+- 主视频仍使用本次 `long-video.mp4`：视频及音频流直接复制重封装，没有改动帧内容、速度或音轨。
+- 真机视频生成 H.264/yuv420p 网页播放副本，保持原分辨率和 30 fps。除视频 9 和 15 的指定截取外，没有增加裁剪、调速、补帧或动作平滑。
+- 视频 9 和 15 为准确同时截取画面和声音，重新编码了 AAC 音轨；音画从同一源时间开始。
+- 未裁剪真机视频的音轨直接复制。
+- 三模态对比将 3 个 960×720、30 fps、452 帧的视频按 AO / AT / TO 顺序横向合成，得到 2880×720 的视频；三路时间范围不变，仅保留 AT 的原始音轨，避免三个声音叠加。
+- 主视频封面使用 cover-page 的优化 WebP 副本；原 PNG 保留用于全分辨率查看。
+- 单段真机封面从剪辑后的对应视频中段提取。
+- H.264 转码不是逐像素无损；原素材仍在你上传的压缩包中，未被覆盖。
 
-```js
-links: {
-  paper: "assets/paper.pdf",
-  code: "",       // 仓库 URL
-  dataset: ""     // 数据下载页 URL
-},
-demo: {
-  src: "assets/demo.mp4",
-  poster: "assets/demo-poster.jpg",
-  captions: "",  // 可选 .vtt 字幕
-  captionsLanguage: "en",
-  captionsLabel: "English",
-  caption: "A representative real-robot demonstration with the corresponding speech audio."
-},
-overview: {
-  image: "assets/overview.png",
-  alt: "ECHO-G framework overview.",
-  caption: "Joint acoustic–linguistic conditioning, robot-space generation, and real-robot execution."
-}
-```
+## 页面配置
 
-- 空链接显示为 Pending / Soon，并禁用按钮；不是虚假的可点击下载链接。
-- 填入非空有效路径后，同一资源在首屏与资源区的入口会自动启用。
-- 视频使用原生控件、按需加载，不会自动播放声音。
-- `demo.src` 需要直接的视频文件 URL 或本地文件路径；不是 YouTube/Bilibili 的网页地址。
-- `overview.image` 为空时显示图占位；加载失败会保留可读提示。
-- 外部资源是否可访问、授权或允许跨域，需要上线前实际测试；程序不会替你验证权限。
-- 最好保持图注与最终图片内容一致；语音、动作与视频播放速度应对应实际实验。
-- 代码与数据说明包含训练、推理、评测，不额外承诺数据预处理代码公开。
+后续主要修改 `site-config.js`：
 
-## 4. 匿名预览与公开版
+- `links.paper / code / dataset`：仍留空。填实际可访问的链接后，资源按钮才会启用。
+- `gallery.initialVisible`：当前显示 6 段，点击按钮展示全部 13 段；改为 13 可始终展开。
+- `gallery.videos`：视频顺序、路径、标题与封面。
+- `comparison.order`：固定 AO / AT / TO 的标签与单独查看入口；视频内顺序已经合成固定，改标签不等于改视频顺序。
+- `cover`：原图及替代文字。
+- `architecture`：架构图和说明。
+- `abstract`：此前提供的论文摘要主体。末尾未完成的资源公开声明继续隐藏，不虚构论文、代码或数据链接。
+- `mode / authors / affiliations / citation`：作者和引用字段继续留空；尚未新增身份信息。
 
-默认 `mode: "anonymous"`，没有作者、机构、致谢和 BibTeX 信息。
+表格数据同时保存在 `data/results.json` 便于核对。网页实际读取 `site-config.js` 中的 tables；以后更改实验数值时，两份记录应一起更新。
 
-公开时可以配置：
+## 本地检查范围
 
-```js
-mode: "public",
-showPreviewBadge: false,
-authors: [
-  { name: "Author name", url: "", affiliation: "1" }
-],
-affiliations: ["1 · Organization"],
-citation: "" // 填最终、已核对的 BibTeX；为空则不显示 Citation 区域
-```
+已检查桌面、平板、手机和 320px 窄屏的布局，无整页横向溢出。
+已检查视频列表、指定剪辑、主视频播放、比较区播放/暂停/进度/静音/全屏、单音轨互斥、封面放大、表格数值与资源按钮状态。
+初始加载不请求 MP4，视频按点击播放，不自动出声。
 
-**mode 只是展示设置，不是完整匿名化工具。** 匿名版的源文件中也不要填写真实作者和机构；不要依赖隐藏 DOM / CSS 来匿名化。
-正式提交前还需要检查域名、仓库和数据外链、PDF 元数据、图片与视频中的身份信息。
-本文页面不保证满足某一期刊全部匿名审稿要求；以实际投稿要求为准。
-
-## 5. 发布
-
-这是普通静态网站。将 `index.html`、`styles.css`、`main.js`、`site-config.js` 和 `assets/` 保持相同目录结构上传到静态托管平台即可。
-本交付物 **没有部署到公网**，没有绑定任何账号或域名。
-
-媒体很大时可单独托管，并在配置中填直链；发布平台的大小限制需要上线前检查。
-当前没有模型在线生成、上传或任何后端请求。
-
-## 6. 发布前检查
-
-1. 用最终素材替换占位，并清楚区分真实机器人与仿真视频。
-2. 核对论文、代码、数据与模型版本；未完成的资源继续留空。
-3. 手机与桌面分别检查标题、图片和视频。
-4. 确认字幕、语音、播放速度及链接。
-5. 匿名审稿版检查页面源码与资源文件，而不仅是可见文字。
-6. 完成发布材料后，设置 `showPreviewBadge: false`。
-
-## 7. 设计范围
-
-包含标题与 Paper / Code / Dataset 按钮、一段代表视频、概览图和简短介绍、三个资源卡片。
-Citation 仅在公开模式且提供真实 BibTeX 后出现。
-不包含实验数值表格、虚构作者或网址、在线交互式生成。
+这些检查基于本地 Chromium 与媒体文件；线上缓存、不同设备及其他浏览器仍需在上传后以实际网址验证。
