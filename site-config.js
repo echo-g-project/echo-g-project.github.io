@@ -1,22 +1,17 @@
-/* ECHO-G v3 — content configuration.
- * Empty Paper/Code/Dataset links remain disabled; no publishing status is invented.
- * Updated gallery is derived only from the newly supplied archive.
- * 9.mp4: source 9-4.mp4 from 4 seconds to end; 15.mp4: source 15-15.mp4 from 0 to 15 seconds.
- * Comparison is one synchronized AO | AT | TO video, using only the AT source audio.
- * Keep author/affiliation/citation fields empty for the anonymous build.
+/* ECHO-G public project page.
+ * Shared presentation content: review-site snapshot, 2026-09-30.
+ * Public links, authors, affiliations and citation are maintained here independently.
+ * Empty links stay disabled; empty identity fields stay hidden.
+ * Do NOT copy this public configuration back to the anonymous review site.
  */
 window.ECHO_G_CONFIG = {
   "projectName": "ECHO-G",
   "title": "Embodied Co-speech Humanoid mOtion Generation",
-  "mode": "anonymous",
   "links": {
     "paper": "",
-    "code": "",
-    "dataset": ""
+    "code": "https://github.com/Mondo-Robotics/ECHO-G",
+    "dataset": "https://huggingface.co/datasets/gaopusen/ECHO-G"
   },
-  "authors": [],
-  "affiliations": [],
-  "citation": "",
   "mainVideo": {
     "src": "assets/videos/long-video.mp4",
     "poster": "assets/posters/cover-page.webp",
@@ -45,11 +40,25 @@ window.ECHO_G_CONFIG = {
         "durationSeconds": 24.3
       },
       {
+        "id": 3,
+        "title": "Trial 03",
+        "src": "assets/videos/real-robot-videos/3.mp4",
+        "poster": "assets/posters/trial-03.jpg",
+        "durationSeconds": 23.9
+      },
+      {
         "id": 4,
         "title": "Trial 04",
         "src": "assets/videos/real-robot-videos/4.mp4",
         "poster": "assets/posters/trial-04.jpg",
         "durationSeconds": 21.033991
+      },
+      {
+        "id": 5,
+        "title": "Trial 05",
+        "src": "assets/videos/real-robot-videos/5.mp4",
+        "poster": "assets/posters/trial-05.jpg",
+        "durationSeconds": 22.567007
       },
       {
         "id": 6,
@@ -98,7 +107,7 @@ window.ECHO_G_CONFIG = {
         "title": "Trial 12",
         "src": "assets/videos/real-robot-videos/12.mp4",
         "poster": "assets/posters/trial-12.jpg",
-        "durationSeconds": 14.5
+        "durationSeconds": 11.0
       },
       {
         "id": 13,
@@ -370,11 +379,16 @@ window.ECHO_G_CONFIG = {
     }
   ],
   "architecture": {
-    "src": "assets/images/Arch-4.png",
+    "src": "assets/images/Arch-5.png",
     "alt": "SGDiT architecture and tracking interface: acoustic conditions enter the motion sequence, while transcript conditions enter through cross-attention.",
     "caption": "Frame-aligned acoustic features and token-level transcript features condition robot-motion generation. The joint-position components of the generated references are executed by a fixed whole-body motion tracker."
   },
   "abstract": "Generating full-body co-speech motion for humanoid robots requires coordinating speech prosody, linguistic content, and embodiment-specific motion. To this end, we present ECHO-G, a framework that jointly conditions full-body robot-motion generation on speech audio and timed transcripts. Its Speech-Grounded Diffusion Transformer (SGDiT) integrates frame-aligned acoustic features into the motion stream and retrieves token-level linguistic context through global and temporally biased cross-attention. Trained with rectified flow matching, SGDiT models the one-to-many relationship between utterances and accompanying gestures directly in robot space. To support training and evaluation, we introduce a BEAT2-derived dataset pairing audio and timed transcripts with robot motion, together with a benchmark covering co-speech characteristics, robot-motion quality, and runtime efficiency. Comparative evaluation supports direct robot-space generation over the evaluated human-motion generation and retargeting pipelines, while modality ablations highlight the benefits of joint audio–text conditioning. We further demonstrate deployment on a physical humanoid robot. A complementary video-rating user study also favors joint conditioning over the compared configurations.",
+  "reviewBuild": false,
+  "authors": [],
+  "affiliations": [],
+  "citation": "",
   "releaseStatement": "The dataset and code for training, inference, and evaluation are publicly available on the project page.",
-  "showReleaseStatement": false
+  "showReleaseStatement": false,
+  "mode": "public"
 };

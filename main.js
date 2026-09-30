@@ -1,4 +1,4 @@
-/* ECHO-G static project page v3. No external libraries, tracking, or online inference. */
+/* ECHO-G public-site enhancement. No external libraries or online inference. */
 (() => {
   'use strict';
   const c = window.ECHO_G_CONFIG || {};
@@ -6,7 +6,18 @@
   const $$ = s => Array.from(document.querySelectorAll(s));
   const players = [];
   const text = v => typeof v === 'string' ? v.trim() : '';
-  const safeURL = v => { const s=text(v); if(!s || /[\u0000-\u001f\u007f]/.test(s)) return ''; try { const u=new URL(s,document.baseURI); return ['http:','https:',...(location.protocol==='file:'?['file:']:[])].includes(u.protocol)?s:''; }catch{return '';} };
+  // Public site: support local media and ordinary HTTP(S) resource links.
+  // Reject executable URL schemes and embedded credentials.
+  const safeURL = value => {
+    const s = text(value);
+    if (!s || /[\u0000-\u001f\u007f]/.test(s)) return '';
+    try {
+      const u = new URL(s, document.baseURI);
+      if (u.username || u.password) return '';
+      if (location.protocol === 'file:' && u.protocol === 'file:') return s;
+      return ['http:', 'https:'].includes(u.protocol) ? s : '';
+    } catch { return ''; }
+  };
   const el = (tag,cls,content) => { const n=document.createElement(tag);if(cls)n.className=cls;if(content!==undefined)n.textContent=content;return n; };
   const icon = name => { const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('class','icon');s.setAttribute('aria-hidden','true');const u=document.createElementNS(s.namespaceURI,'use');u.setAttribute('href',`#i-${name}`);s.append(u);return s; };
   const clock = t => {const n=Math.max(0,Math.floor(Number(t)||0));return `${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;};
@@ -32,8 +43,11 @@
     const url=safeURL(c.links?.[k]);if(!url)continue;links++;
     $$(`[data-resource="${k}"]`).forEach(b=>{const a=link(url,'',b.className);a.dataset.resource=k;while(b.firstChild)a.append(b.firstChild);a.querySelector('.pending-tag')?.remove();b.replaceWith(a);});
   }
-  if(links===3)$('#resource-note').hidden=true;
-  else if(links)$('#resource-note').textContent='Additional resources will be linked when available.';
+  const resourceNote = $('#resource-note');
+  if (resourceNote) {
+    resourceNote.hidden = links === 0 || links === 3;
+    if (links > 0 && links < 3) resourceNote.textContent = 'Additional resources will be linked when available.';
+  }
 
   const main=createVideo({...c.mainVideo,title:'ECHO-G main video'},{main:true});$('#main-video-slot').append(main.shell);
   main.video.addEventListener('click',()=>{if(!main.shell.classList.contains('has-played'))main.video.play().catch(()=>{});});
@@ -42,8 +56,7 @@
   const mainState=()=>{mainButton.querySelector('use').setAttribute('href',main.video.paused?'#i-play':'#i-pause');mainButton.querySelector('span:not(.main-duration)').textContent=main.video.paused?(main.video.currentTime>0?'Continue watching':'Watch the full video'):'Pause video';};
   ['play','pause','ended'].forEach(e=>main.video.addEventListener(e,mainState));
 
-  // Gallery list is prepared by gallery-restoration-v6.js in original file order.
-  // Do not keep the former source-14 removal filter.
+  // The configuration lists all supplied real-robot trials in original numeric order.
   const videos=Array.isArray(c.gallery?.videos)?c.gallery.videos:[];
   const initial=Math.max(1,Number(c.gallery?.initialVisible)||6);
   $('#trial-count').textContent=`${videos.length} videos`;
@@ -82,14 +95,43 @@
   }
   const a=c.architecture||{};if(safeURL(a.src))$('#architecture-image').src=safeURL(a.src);if(text(a.alt))$('#architecture-image').alt=a.alt;$('#architecture-caption').textContent=text(a.caption);
   if(text(c.abstract))$('#abstract-text').textContent=c.abstract;
-  if(c.showReleaseStatement&&links===3&&text(c.releaseStatement)){$('#abstract-release').textContent=c.releaseStatement;$('#abstract-release').hidden=false;}
   const dlg=$('#figure-dialog');const openFigure=(src,title,alt)=>{const u=safeURL(src);if(!u)return;$('#dialog-title').textContent=title;$('#dialog-image').src=u;$('#dialog-image').alt=alt||title;$('#dialog-original').href=u;if(dlg.showModal)dlg.showModal();else window.open(u,'_blank','noopener');};
   $('#open-cover').addEventListener('click',()=>openFigure(c.cover?.src,c.cover?.title||'Project overview',c.cover?.alt));
   const openArchitecture=()=>openFigure(a.src,'SGDiT architecture',a.alt);$('#open-architecture').addEventListener('click',openArchitecture);$('#architecture-image-button').addEventListener('click',openArchitecture);$('#close-dialog').addEventListener('click',()=>dlg.close());
   dlg.addEventListener('click',e=>{if(e.target===dlg){const r=dlg.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dlg.close();}});
-  if(c.mode==='public'){
-    for(const author of c.authors||[]){if(!text(author.name))continue;const u=safeURL(author.url);$('#authors').append(u?link(u,author.name,''):el('span','',author.name));}$('#authors').hidden=!$('#authors').childElementCount;
-    for(const aff of c.affiliations||[])$('#affiliations').append(el('p','',String(aff)));$('#affiliations').hidden=!$('#affiliations').childElementCount;
-    if(text(c.citation)){$('#citation-code').textContent=c.citation;$('#citation').hidden=false;}
+
+  // These public-only fields are deliberately absent from the review-site build.
+  if (c.mode === 'public') {
+    const authors = $('#authors');
+    const affiliations = $('#affiliations');
+    if (authors) {
+      authors.replaceChildren();
+      for (const author of Array.isArray(c.authors) ? c.authors : []) {
+        const name = text(typeof author === 'string' ? author : author?.name);
+        if (!name) continue;
+        const url = safeURL(typeof author === 'object' ? author.url : '');
+        authors.append(url ? link(url, name, '') : el('span', '', name));
+      }
+      authors.hidden = !authors.childElementCount;
+    }
+    if (affiliations) {
+      affiliations.replaceChildren();
+      for (const affiliation of Array.isArray(c.affiliations) ? c.affiliations : []) {
+        const name = text(typeof affiliation === 'string' ? affiliation : affiliation?.name);
+        if (name) affiliations.append(el('p', '', name));
+      }
+      affiliations.hidden = !affiliations.childElementCount;
+    }
+    const citation = $('#citation');
+    const citationCode = $('#citation-code');
+    if (citation && citationCode) {
+      citationCode.textContent = text(c.citation);
+      citation.hidden = !text(c.citation);
+    }
+    const statement = $('#release-statement');
+    if (statement) {
+      statement.textContent = text(c.releaseStatement);
+      statement.hidden = !c.showReleaseStatement || !text(c.releaseStatement);
+    }
   }
 })();
