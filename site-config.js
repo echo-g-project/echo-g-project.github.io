@@ -8,7 +8,7 @@ window.ECHO_G_CONFIG = {
   "projectName": "ECHO-G",
   "title": "Embodied Co-speech Humanoid mOtion Generation",
   "links": {
-    "paper": "",
+    "paper": "https://arxiv.org/abs/2609.39575",
     "code": "https://github.com/Mondo-Robotics/ECHO-G",
     "dataset": "https://huggingface.co/datasets/gaopusen/ECHO-G"
   },
