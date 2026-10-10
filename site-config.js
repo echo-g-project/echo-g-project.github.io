@@ -9,7 +9,7 @@ window.ECHO_G_CONFIG = {
   "title": "Embodied Co-speech Humanoid mOtion Generation",
   "links": {
     "paper": "https://arxiv.org/abs/2609.39575",
-    "code": "https://github.com/Mondo-Robotics/ECHO-G",
+    "code": "https://github.com/NJU-SOARLAB/ECHO-G",
     "dataset": "https://huggingface.co/datasets/gaopusen/ECHO-G"
   },
   "mainVideo": {
